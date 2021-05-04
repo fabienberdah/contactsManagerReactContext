@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ContactsContext } from "../../context/ContactsContext";
 import PropTypes from "prop-types";
 
 const ContactItem = (props) => {
-  const { name, phone, email } = props.contact;
+  const { id, name, phone, email } = props.contact;
 
   const [displayInfo, setDisplayInfo] = useState(false);
 
-  const onDeleteClick = props.contactDeleteHandler;
+  const { deleteContact } = useContext(ContactsContext);
 
   return (
     <div className="ContactItem card pl-4 py-3 my-2" style={{ width: "26rem" }}>
@@ -30,7 +31,10 @@ const ContactItem = (props) => {
               <i className="fas fa-at mr-1" /> <b>Email:</b> {email}
             </li>
           </ul>
-          <button className="btn btn-danger btn-sm" onClick={onDeleteClick}>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => deleteContact(id)}
+          >
             Delete Contact
           </button>
         </div>
